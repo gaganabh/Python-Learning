@@ -1,0 +1,143 @@
+name: aws-automation
+deployment: cicd
+kube_config: /root/.kube/rainiercicd4
+hosts:
+  - name: master0
+    host: 10.29.74.71
+    roles:
+    - master
+    - worker
+
+test_runner: [test-runner-0, test-runner-1, opnstk-runner-0, opnstk-runner-1]
+devices:
+  - eid: IR809G-LTE-GA-K9+JMXRTY20
+    type: IR801
+    model: IR809G-LTE-GA-K9
+    serial: JMXRTY20
+    ip: 192.168.1.1
+    labels:
+      - dm_api_claim
+    ssh_user: root
+    ssh_password: password
+
+environment:
+  cluster_type: dev
+  public_fqdn: rainiercicd4.ciscoiotdev.io
+  public_int_fqdn: rainiercicd4-int.ciscoiotdev.io
+  csr_hostnames:
+    - "csr0-rainiercicd4.ciscoiotdev.io"
+  nlb_int:
+    dns_name: rainiercicd4-udp-nlb-internal.ciscoiotdev.io
+
+  postgres_service_noistio: rainiercicd4-rainier-rds.cgxysuh3bvvr.us-west-2.rds.amazonaws.com
+
+  keycloak_login_app_client_secret: 014_L8m76s#ZbRK*
+  keycloak_infra_client_secret: y0deH8+_k5i21-W4
+  telemetry_client_secret: p!8457^Trn.V1N2j
+  license_client_secret: in096J3sTZ-1*P#7
+  s3:
+    name: rainiercicd4-156070148433-mime-rainier-bucket
+    arn: arn:aws:s3:::rainiercicd4-156070148433-mime-rainier-bucket
+
+  artifacts:
+    keycloak:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+        requests:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+    iam:
+      skip_update_emails: "True"
+      replicas: 1
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+        requests:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+    ui:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 2Gi
+          ephemeral-storage: 2Gi
+        requests:
+          cpu: 1000m
+          memory: 2Gi
+          ephemeral-storage: 2Gi
+    audit:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+        requests:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+    wst:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+        requests:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+    dm:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 3000m
+          memory: 5Gi
+          ephemeral-storage: 25Gi
+        requests:
+          cpu: 3000m
+          memory: 5Gi
+          ephemeral-storage: 25Gi
+    csragent:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 300Mi
+          ephemeral-storage: 300Mi
+        requests:
+          cpu: 1000m
+          memory: 300Mi
+          ephemeral-storage: 300Mi
+    jobengmgmt:
+      disabled: "True"
+      replicas: 1
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+        requests:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+    license:
+      replicas: 1
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
+        requests:
+          cpu: 2000m
+          memory: 2Gi
+          ephemeral-storage: 2.5Gi
